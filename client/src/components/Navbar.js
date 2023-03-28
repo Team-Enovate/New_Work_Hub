@@ -1,9 +1,12 @@
-import fullLogo from "../full_logo.png";
-import { Link } from "react-router-dom";
+import fullLogo from "../logo.png";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
+
 function Navbar() {
+  const allowedAddress = ""; // replace with your allowed wallet address
+  const navigate = useNavigate();
   const [connected, toggleConnect] = useState(false);
   const location = useLocation();
   const [currAddress, updateAddress] = useState("0x");
@@ -42,7 +45,23 @@ function Navbar() {
         window.location.replace(location.pathname)
       });
   }
-
+  useEffect(() => {
+    const checkAddress = async () => {
+      const ethers = require("ethers");
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const addr = await signer.getAddress();
+      if (addr.toLowerCase() !== allowedAddress.toLowerCase()) {
+        // redirect to homepage if not allowed address
+        navigate("/");
+      }
+    };
+  
+    if (location.pathname === "/admin" && window.ethereum && connected) {
+      checkAddress();
+    }
+  }, [connected, navigate, location.pathname, allowedAddress]);
+  
  useEffect(() => {
   let val = window.ethereum.isConnected();
   if (val) {
@@ -55,26 +74,28 @@ function Navbar() {
   window.ethereum.on('accountsChanged', function(accounts){
     window.location.replace(location.pathname)
   })
-}, []); // add empty dependency array
+}, [location.pathname]); // add empty dependency array
 
 
   return (
     <div className="">
-      <nav className="w-screen mx-2 mb-2 bg-gray-900 sticky top-0 rounded-b-5">
-        <ul className="flex items-end justify-between py-3 bg-transparent text-white pr-5">
+      <nav className="bg-gray-900 text-white py-2">
+        <ul className="container mx-auto flex justify-between items-center">
           <li className="flex items-end ml-5 pb-2">
             <Link to="/">
-              <img
+            <img
                 src={fullLogo}
                 alt=""
-                width={120}
-                height={120}
+                width={150}
+                height={150}
                 className="inline-block -mt-2"
               />
             </Link>
           </li>
           <li className="w-2/6">
             <ul className="lg:flex justify-between font-bold mr-10 text-lg">
+            
+             
               {location.pathname === "/" ? (
                 <li className="border-b-2 hover:pb-0 p-2">
                   <Link to="/">Home</Link>
@@ -82,8 +103,7 @@ function Navbar() {
               ) : (
                 <li className="hover:border-b-2 hover:pb-0 p-2">
                   <Link to="/">Home</Link>
-                </li>
-              )}
+                </li>)}
               {location.pathname === "/sellNFT" ? (
                 <li className="border-b-2 hover:pb-0 p-2">
                   <Link to="/About">About </Link>
@@ -93,15 +113,16 @@ function Navbar() {
                   <Link to="/About">About </Link>
                 </li>
               )}
-              {location.pathname === "/profile" ? (
+              {location.pathname === "/User" ? (
                 <li className="border-b-2 hover:pb-0 p-2">
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/User">User</Link>
                 </li>
               ) : (
                 <li className="hover:border-b-2 hover:pb-0 p-2">
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/User">User</Link>
                 </li>
               )}
+              
               <li>
                 <button
                   className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"

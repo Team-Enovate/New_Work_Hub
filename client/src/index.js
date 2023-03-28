@@ -8,22 +8,26 @@ import {
 } from "react-router-dom";
 import About from './components/About';
 import Home from './components/Home';
-import Profile from './components/Profile';
-//import Register from './components/Register';
+import Admin from './components/Admin';
+import User from "./components/User";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/About" element={<About />}/> 
         <Route path="/About/:tokenId" element={<About />}/>        
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/Admin" element={<Admin />}/>
+        <Route path="/User" element={<User/>}/>
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

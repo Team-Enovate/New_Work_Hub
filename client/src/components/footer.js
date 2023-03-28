@@ -1,60 +1,62 @@
 import React from "react";
-import fullLogo from "../full_logo.png";
+import logo from "../logo.png";
+import Avatar from "../logo.png";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-800 h-48 text-white font-bold flex justify-between items-center">
-      <footer className="font-sans mx-auto py-4  flex  ">
-        <a href="/" className="logo">
-          <img src={fullLogo} alt="" width={120} height={120} className="" />
-          {+new Date().getFullYear()}
+    <nav className="bg-gray-900">
+      <div className="container mx-auto px-4 py-6 flex justify-center items-center">
+        {/* Logo */}
+        <a className="mr-auto" href="/">
+          <img
+            src={logo}
+            width="110"
+            height="40"
+            className="inline-block align-top"
+            alt="bank"
+          />
         </a>
-        <div className="flex">
-          <nav className="mx-64 px-64">
-            <ul className="">
-              <li className="">
-                <div className="">
-                  Home Page
-                </div>
-              </li>
-              <li className="">
-                <div className="">
-                  Request
-                </div>
-              </li>
-              <li className="">
-                <div className="">
-                  Aoubt us
-                </div>
-              </li>
-            </ul>
-          </nav>
-          <nav className="">
-            <ul className=" ">
-              <li className="">
-                <div className="">
-                  Drivers
-                </div>
-              </li>
-              <li className="">
-                <div className="">
-                  Riders
-                </div>
-              </li>
-              <li className="">
-                <a  className="">
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </nav>
+        {/* Navigation Links */}
+        <ul className="flex-1 flex justify-center items-center">
+          <li className="mr-6">
+            <a
+              className="text-gray-400 hover:text-white transition duration-150 ease-in-out"
+              href="/"
+            >
+              Home
+            </a>
+          </li>
+          <li className="mr-6">
+            <a
+              className="text-gray-400 hover:text-white transition duration-150 ease-in-out"
+              href="/about"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              className="text-gray-400 hover:text-white transition duration-150 ease-in-out"
+              href="/user"
+            >
+              User
+            </a>
+          </li>
+        </ul>
+        {/* Copyright */}
+        <div className="text-white text-center ml-auto">
+          © 2023 Grandida Inc. All rights reserved. | Created by Team Enovate
         </div>
-      </footer>
-      <div className="font-sans mx-auto py-4 text-center">
-        Copyright © Block-Ride <br />
-        ....by CHIEMEZIE AGBO
+        {/* Samuel's Avatar */}
+        <img
+          src={Avatar}
+          width="30"
+          height="30"
+          className="inline-block rounded-full ml-4"
+          alt="Samuel's avatar"
+        />
       </div>
-    </div>
+    </nav>
   );
 };
 
